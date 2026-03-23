@@ -60,3 +60,4 @@ describe('Kendo UI for jQuery Demo Tests', () => {
     cy.get('.k-logo, .logo, [aria-label="logo"]').first().click();
     cy.url().should('include', 'demos.telerik.com/kendo-ui');
   });
+});
