@@ -116,7 +116,12 @@ describe('Sauce Demo Tests', () => {
 
   it('should sort products by price low to high', () => {
     cy.login('standard_user', 'secret_sauce');
-    cy.get('[data-test="product_sort_container"]').select('lohi');
+    // Explicitly confirm we are on the inventory page and the sort
+    // container is present before interacting with it.
+    cy.url().should('include', '/inventory.html');
+    cy.get('[data-test="product_sort_container"]')
+      .should('be.visible')
+      .select('lohi');
     cy.get('.inventory_item_price').then(($prices) => {
       const prices = [...$prices].map((el) =>
         parseFloat(el.innerText.replace('$', ''))
@@ -128,7 +133,12 @@ describe('Sauce Demo Tests', () => {
 
   it('should sort products by name A to Z', () => {
     cy.login('standard_user', 'secret_sauce');
-    cy.get('[data-test="product_sort_container"]').select('az');
+    // Explicitly confirm we are on the inventory page and the sort
+    // container is present before interacting with it.
+    cy.url().should('include', '/inventory.html');
+    cy.get('[data-test="product_sort_container"]')
+      .should('be.visible')
+      .select('az');
     cy.get('.inventory_item_name').then(($names) => {
       const names = [...$names].map((el) => el.innerText);
       const sorted = [...names].sort();
